@@ -1,5 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
+import { Alert } from "react-native";
 
 export default () => {
   const [images, setImages] = useState([]);
@@ -14,11 +15,43 @@ export default () => {
     });
 
     if (!result.canceled) {
-      setImages([...images, result.assets[0].uri]);
+      const lastId = images.length === 0 ? 0 : images[images.length - 1].id;
+      const newImage = {
+        id: lastId + 1,
+        uri: result.assets[0].uri,
+      };
+      setImages([...images, newImage]);
     }
   };
+
+  const deleteImage = (imagesId) => {
+    Alert.alert("이미지를 삭제하시겠어요?", "", [
+      {
+        text: "아니오",
+        style: "cancel",
+      },
+      {
+        text: "네",
+        onPress: () => {
+          const newImages = images.filter((images) => images.id !== imagesId);
+          setImages(newImages);
+        },
+      },
+    ]);
+  };
+
+  const imagesWithAddButton = [
+    ...images,
+    {
+      id: -1,
+      uri: "",
+    },
+  ];
+
   return {
     images,
     pickImage,
+    deleteImage,
+    imagesWithAddButton,
   };
 };
