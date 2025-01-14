@@ -3,7 +3,14 @@ import { useState } from "react";
 import { Alert } from "react-native";
 
 export default () => {
+  const defaultAlbum = {
+    id: 1,
+    title: "기본",
+  };
   const [images, setImages] = useState([]);
+  const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum); // 추가
+  const [albums, setAlbums] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -40,6 +47,9 @@ export default () => {
     ]);
   };
 
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
+
   const imagesWithAddButton = [
     ...images,
     {
@@ -49,9 +59,12 @@ export default () => {
   ];
 
   return {
-    images,
+    imagesWithAddButton,
     pickImage,
     deleteImage,
-    imagesWithAddButton,
+    selectedAlbum,
+    modalVisible,
+    openModal,
+    closeModal,
   };
 };
