@@ -1,3 +1,5 @@
+import MyDropdownPicker from "@/src/MyDropdownPicker";
+import TextInputModal from "@/src/TextInputModal";
 import useGallery from "@/src/use-gallery";
 import {
   Dimensions,
@@ -15,12 +17,22 @@ const width = Dimensions.get("screen").width;
 const columnSize = width / 3;
 
 export default function Index() {
-  const { images, pickImage, deleteImage, imagesWithAddButton } = useGallery();
+  const {
+    pickImage,
+    deleteImage,
+    imagesWithAddButton,
+    selectedAlbum,
+    modalVisible,
+    openModal,
+    closeModal,
+  } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
   };
   const onLongPressImage = (imagesId) => deleteImage(imagesId);
-
+  const onPressAddAlbum = () => {
+    openModal();
+  };
   const renderItem = ({ item: { id, uri }, index }) => {
     if (id === -1) {
       return (
@@ -50,6 +62,15 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* 앨범 Dropdown, 앨범 추가 버튼, 이미지 목록 */}
+      <MyDropdownPicker
+        selectedAlbumTitle={selectedAlbum.title}
+        onPressAddAlbum={onPressAddAlbum}
+      />
+
+      {/* 앨범을 추가하는 TextInputModal */}
+      <TextInputModal modalVisible={modalVisible} />
+      {/* 이미지 리스트 */}
       <FlatList
         data={imagesWithAddButton}
         renderItem={renderItem}
