@@ -1,5 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 export default () => {
@@ -9,9 +9,18 @@ export default () => {
   };
   const [images, setImages] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum); // 추가
-  const [albums, setAlbums] = useState([]);
+  const [albums, setAlbums] = useState([defaultAlbum]);
   const [modalVisible, setModalVisible] = useState(false);
   const [albumTitle, setAlbumTitle] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    console.log("selectedAlbum", selectedAlbum);
+  }, [selectedAlbum]);
+
+  useEffect(() => {
+    console.log("albums", albums);
+  }, [albums]);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -50,6 +59,8 @@ export default () => {
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
+  const openDropdown = () => setIsDropdownOpen(true);
+  const closeDropdown = () => setIsDropdownOpen(false);
 
   const addAlbun = () => {
     const lastId = albums.length === 0 ? 0 : albums[albums.length - 1].id;
@@ -59,6 +70,10 @@ export default () => {
     };
     setAlbums([...albums, newAlbum]);
   };
+  const selectAlbum = (album) => {
+    setSelectedAlbum(album);
+  };
+
   const resetAlbumTitle = () => setAlbumTitle("");
   const imagesWithAddButton = [
     ...images,
@@ -80,5 +95,10 @@ export default () => {
     setAlbumTitle,
     addAlbun,
     resetAlbumTitle,
+    isDropdownOpen,
+    openDropdown,
+    closeDropdown,
+    albums,
+    selectAlbum,
   };
 };

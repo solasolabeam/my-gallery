@@ -29,6 +29,11 @@ export default function Index() {
     setAlbumTitle,
     addAlbun,
     resetAlbumTitle,
+    isDropdownOpen,
+    openDropdown,
+    closeDropdown,
+    albums,
+    selectAlbum,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
@@ -48,6 +53,18 @@ export default function Index() {
   const onPressBackdrop = () => {
     closeModal();
   };
+  const onPressHeader = () => {
+    if (isDropdownOpen) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
+  };
+  const onPressAlbum = (album) => {
+    selectAlbum(album);
+    closeDropdown();
+  };
+
   const renderItem = ({ item: { id, uri }, index }) => {
     if (id === -1) {
       return (
@@ -79,8 +96,12 @@ export default function Index() {
     <SafeAreaView style={styles.container}>
       {/* 앨범 Dropdown, 앨범 추가 버튼, 이미지 목록 */}
       <MyDropdownPicker
-        selectedAlbumTitle={selectedAlbum.title}
+        isDropdownOpen={isDropdownOpen}
+        onPressHeader={onPressHeader}
+        selectedAlbum={selectedAlbum}
         onPressAddAlbum={onPressAddAlbum}
+        albums={albums}
+        onPressAlbum={onPressAlbum}
       />
 
       {/* 앨범을 추가하는 TextInputModal */}
@@ -96,6 +117,7 @@ export default function Index() {
         data={imagesWithAddButton}
         renderItem={renderItem}
         numColumns={3}
+        style={{ zIndex: -1 }}
       />
     </SafeAreaView>
   );
