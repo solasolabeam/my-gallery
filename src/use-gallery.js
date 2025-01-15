@@ -11,6 +11,7 @@ export default () => {
   const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum); // 추가
   const [albums, setAlbums] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [albumTitle, setAlbumTitle] = useState("");
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -50,6 +51,15 @@ export default () => {
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
 
+  const addAlbun = () => {
+    const lastId = albums.length === 0 ? 0 : albums[albums.length - 1].id;
+    const newAlbum = {
+      id: lastId + 1,
+      title: albumTitle,
+    };
+    setAlbums([...albums, newAlbum]);
+  };
+  const resetAlbumTitle = () => setAlbumTitle("");
   const imagesWithAddButton = [
     ...images,
     {
@@ -66,5 +76,9 @@ export default () => {
     modalVisible,
     openModal,
     closeModal,
+    albumTitle,
+    setAlbumTitle,
+    addAlbun,
+    resetAlbumTitle,
   };
 };
