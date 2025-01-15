@@ -25,6 +25,10 @@ export default function Index() {
     modalVisible,
     openModal,
     closeModal,
+    albumTitle,
+    setAlbumTitle,
+    addAlbun,
+    resetAlbumTitle,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
@@ -32,6 +36,17 @@ export default function Index() {
   const onLongPressImage = (imagesId) => deleteImage(imagesId);
   const onPressAddAlbum = () => {
     openModal();
+  };
+  const onSubmitEditing = () => {
+    if (!albumTitle) return;
+    // 1. 앨범에 타이틀 추가
+    addAlbun();
+    // 2. 모달 닫기 & TextInput의 value 초기화
+    closeModal();
+    resetAlbumTitle();
+  };
+  const onPressBackdrop = () => {
+    closeModal();
   };
   const renderItem = ({ item: { id, uri }, index }) => {
     if (id === -1) {
@@ -69,7 +84,13 @@ export default function Index() {
       />
 
       {/* 앨범을 추가하는 TextInputModal */}
-      <TextInputModal modalVisible={modalVisible} />
+      <TextInputModal
+        modalVisible={modalVisible}
+        albumTitle={albumTitle}
+        setAlbumTitle={setAlbumTitle}
+        onSubmitEditing={onSubmitEditing}
+        onPressBackdrop={onPressBackdrop}
+      />
       {/* 이미지 리스트 */}
       <FlatList
         data={imagesWithAddButton}
