@@ -14,14 +14,6 @@ export default () => {
   const [albumTitle, setAlbumTitle] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    console.log("selectedAlbum", selectedAlbum);
-  }, [selectedAlbum]);
-
-  useEffect(() => {
-    console.log("albums", albums);
-  }, [albums]);
-
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -36,6 +28,7 @@ export default () => {
       const newImage = {
         id: lastId + 1,
         uri: result.assets[0].uri,
+        albumId: selectedAlbum.id,
       };
       setImages([...images, newImage]);
     }
@@ -75,8 +68,12 @@ export default () => {
   };
 
   const resetAlbumTitle = () => setAlbumTitle("");
+
+  const filteredImages = images.filter(
+    (image) => image.albumId === selectedAlbum.id
+  );
   const imagesWithAddButton = [
-    ...images,
+    ...filteredImages,
     {
       id: -1,
       uri: "",
