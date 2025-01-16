@@ -7,7 +7,9 @@ export default ({ modalVisible, onPressBackdrop, selectedImage }) => {
         onPress={onPressBackdrop}
         style={{
           flex: 1,
-          backgroundColor: "lightblue",
+          //   backgroundColor: "lightblue",
+          //   opacity: 0.5,
+          backgroundColor: `rgba(77,75,75, 0.8)`,
           justifyContent: "center",
           alignItems: "center",
         }}
