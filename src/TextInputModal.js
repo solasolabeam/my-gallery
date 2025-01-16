@@ -9,14 +9,18 @@ import {
 } from "react-native";
 
 export default ({
-  modalVisible,
+  textIntputModalVisible,
   albumTitle,
   setAlbumTitle,
   onSubmitEditing,
   onPressBackdrop,
 }) => {
   return (
-    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={textIntputModalVisible}
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}

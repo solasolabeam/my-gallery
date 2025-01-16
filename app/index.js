@@ -1,6 +1,8 @@
+import BigImgModal from "@/src/BigImgModal";
 import MyDropdownPicker from "@/src/MyDropdownPicker";
 import TextInputModal from "@/src/TextInputModal";
 import useGallery from "@/src/use-gallery";
+import { useEffect } from "react";
 import {
   Dimensions,
   FlatList,
@@ -22,9 +24,9 @@ export default function Index() {
     deleteImage,
     imagesWithAddButton,
     selectedAlbum,
-    modalVisible,
-    openModal,
-    closeModal,
+    textIntputModalVisible,
+    openTextInputModal,
+    closeTextInputModal,
     albumTitle,
     setAlbumTitle,
     addAlbun,
@@ -34,24 +36,25 @@ export default function Index() {
     closeDropdown,
     albums,
     selectAlbum,
+    deleteAlbum,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
   };
   const onLongPressImage = (imagesId) => deleteImage(imagesId);
   const onPressAddAlbum = () => {
-    openModal();
+    openTextInputModal();
   };
   const onSubmitEditing = () => {
     if (!albumTitle) return;
     // 1. 앨범에 타이틀 추가
     addAlbun();
     // 2. 모달 닫기 & TextInput의 value 초기화
-    closeModal();
+    closeTextInputModal();
     resetAlbumTitle();
   };
   const onPressBackdrop = () => {
-    closeModal();
+    closeTextInputModal();
   };
   const onPressHeader = () => {
     if (isDropdownOpen) {
@@ -64,7 +67,12 @@ export default function Index() {
     selectAlbum(album);
     closeDropdown();
   };
-
+  const onLongPressAlbum = (albumId) => {
+    deleteAlbum(albumId);
+  };
+  useEffect(() => {
+    console.log("albums", albums);
+  }, [albums]);
   const renderItem = ({ item: { id, uri }, index }) => {
     if (id === -1) {
       return (
@@ -102,16 +110,21 @@ export default function Index() {
         onPressAddAlbum={onPressAddAlbum}
         albums={albums}
         onPressAlbum={onPressAlbum}
+        onLongPressAlbum={onLongPressAlbum}
       />
 
       {/* 앨범을 추가하는 TextInputModal */}
       <TextInputModal
-        modalVisible={modalVisible}
+        textIntputModalVisible={textIntputModalVisible}
         albumTitle={albumTitle}
         setAlbumTitle={setAlbumTitle}
         onSubmitEditing={onSubmitEditing}
         onPressBackdrop={onPressBackdrop}
       />
+
+      {/* 이미지를 크게 보는 Modal */}
+      <BigImgModal />
+
       {/* 이미지 리스트 */}
       <FlatList
         data={imagesWithAddButton}

@@ -10,7 +10,8 @@ export default () => {
   const [images, setImages] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum); // 추가
   const [albums, setAlbums] = useState([defaultAlbum]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [textIntputModalVisible, setTextInputModalVisible] = useState(false);
+  const [bigImgtModalVisible, setBigImgModalVisible] = useState(false);
   const [albumTitle, setAlbumTitle] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -50,8 +51,8 @@ export default () => {
     ]);
   };
 
-  const openModal = () => setModalVisible(true);
-  const closeModal = () => setModalVisible(false);
+  const openTextInputModal = () => setTextInputModalVisible(true);
+  const closeTextInputModal = () => setTextInputModalVisible(false);
   const openDropdown = () => setIsDropdownOpen(true);
   const closeDropdown = () => setIsDropdownOpen(false);
 
@@ -64,7 +65,28 @@ export default () => {
     setAlbums([...albums, newAlbum]);
   };
   const selectAlbum = (album) => {
+    console.log("select! album", album);
     setSelectedAlbum(album);
+  };
+  const deleteAlbum = (albumId) => {
+    if (albumId === defaultAlbum.id) {
+      Alert.alert("기본 앨범은 삭제할 수 없어요!");
+      return;
+    }
+    Alert.alert("앨범를 삭제하시겠어요?", "", [
+      {
+        text: "아니오",
+        style: "cancel",
+      },
+      {
+        text: "네",
+        onPress: () => {
+          const newAlbums = albums.filter((album) => album.id !== albumId);
+          setAlbums(newAlbums);
+          setSelectedAlbum(defaultAlbum);
+        },
+      },
+    ]);
   };
 
   const resetAlbumTitle = () => setAlbumTitle("");
@@ -85,9 +107,9 @@ export default () => {
     pickImage,
     deleteImage,
     selectedAlbum,
-    modalVisible,
-    openModal,
-    closeModal,
+    textIntputModalVisible,
+    openTextInputModal,
+    closeTextInputModal,
     albumTitle,
     setAlbumTitle,
     addAlbun,
@@ -97,5 +119,6 @@ export default () => {
     closeDropdown,
     albums,
     selectAlbum,
+    deleteAlbum,
   };
 };
