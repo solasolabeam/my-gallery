@@ -14,6 +14,7 @@ export default () => {
   const [bigImgtModalVisible, setBigImgModalVisible] = useState(false);
   const [albumTitle, setAlbumTitle] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null); // 추가
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -53,6 +54,8 @@ export default () => {
 
   const openTextInputModal = () => setTextInputModalVisible(true);
   const closeTextInputModal = () => setTextInputModalVisible(false);
+  const openBigImgModal = () => setBigImgModalVisible(true);
+  const closeBigImgModal = () => setBigImgModalVisible(false);
   const openDropdown = () => setIsDropdownOpen(true);
   const closeDropdown = () => setIsDropdownOpen(false);
 
@@ -88,6 +91,9 @@ export default () => {
       },
     ]);
   };
+  const selectImage = (image) => {
+    setSelectedImage(image);
+  };
 
   const resetAlbumTitle = () => setAlbumTitle("");
 
@@ -120,5 +126,10 @@ export default () => {
     albums,
     selectAlbum,
     deleteAlbum,
+    bigImgtModalVisible,
+    openBigImgModal,
+    closeBigImgModal,
+    selectImage,
+    selectedImage,
   };
 };

@@ -37,6 +37,11 @@ export default function Index() {
     albums,
     selectAlbum,
     deleteAlbum,
+    bigImgtModalVisible,
+    openBigImgModal,
+    closeBigImgModal,
+    selectImage,
+    selectedImage,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
@@ -53,7 +58,7 @@ export default function Index() {
     closeTextInputModal();
     resetAlbumTitle();
   };
-  const onPressBackdrop = () => {
+  const onPressTextInputModalBackdrop = () => {
     closeTextInputModal();
   };
   const onPressHeader = () => {
@@ -70,10 +75,16 @@ export default function Index() {
   const onLongPressAlbum = (albumId) => {
     deleteAlbum(albumId);
   };
-  useEffect(() => {
-    console.log("albums", albums);
-  }, [albums]);
-  const renderItem = ({ item: { id, uri }, index }) => {
+  const onPressImage = (image) => {
+    selectImage(image);
+    openBigImgModal();
+  };
+  const onPressBigImgModalBackdrop = () => {
+    closeBigImgModal();
+  };
+
+  const renderItem = ({ item: image, index }) => {
+    const { id, uri } = image;
     if (id === -1) {
       return (
         <TouchableOpacity
@@ -91,7 +102,10 @@ export default function Index() {
       );
     }
     return (
-      <TouchableOpacity onLongPress={() => onLongPressImage(id)}>
+      <TouchableOpacity
+        onPress={() => onPressImage(image)}
+        onLongPress={() => onLongPressImage(id)}
+      >
         <Image
           source={{ uri: uri }}
           style={{ width: columnSize, height: columnSize }}
@@ -115,15 +129,19 @@ export default function Index() {
 
       {/* 앨범을 추가하는 TextInputModal */}
       <TextInputModal
-        textIntputModalVisible={textIntputModalVisible}
+        modalVisible={textIntputModalVisible}
         albumTitle={albumTitle}
         setAlbumTitle={setAlbumTitle}
         onSubmitEditing={onSubmitEditing}
-        onPressBackdrop={onPressBackdrop}
+        onPressBackdrop={onPressTextInputModalBackdrop}
       />
 
       {/* 이미지를 크게 보는 Modal */}
-      <BigImgModal />
+      <BigImgModal
+        modalVisible={bigImgtModalVisible}
+        onPressBackdrop={onPressBigImgModalBackdrop}
+        selectedImage={selectedImage}
+      />
 
       {/* 이미지 리스트 */}
       <FlatList
