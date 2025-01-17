@@ -95,11 +95,37 @@ export default () => {
     setSelectedImage(image);
   };
 
-  const resetAlbumTitle = () => setAlbumTitle("");
-
   const filteredImages = images.filter(
     (image) => image.albumId === selectedAlbum.id
   );
+
+  const moveToPreviousImage = () => {
+    // filteredImages;
+    const selectedImageIndex = filteredImages.findIndex(
+      (image) => image.id === selectedImage.id
+    );
+    const previousImageIdx = selectedImageIndex - 1;
+    const previousImage = filteredImages[previousImageIdx];
+    setSelectedImage(previousImage);
+  };
+  const moveToNextImage = () => {
+    // filteredImages;
+    const selectedImageIndex = filteredImages.findIndex(
+      (image) => image.id === selectedImage.id
+    );
+    const nextImageIdx = selectedImageIndex + 1;
+    const nextImage = filteredImages[nextImageIdx];
+    setSelectedImage(nextImage);
+  };
+
+  const showPreviousArrow =
+    filteredImages.findIndex((image) => image.id === selectedImage?.id) !== 0;
+  const showNextArrow =
+    filteredImages.findIndex((image) => image.id === selectedImage?.id) !==
+    filteredImages.length - 1;
+
+  const resetAlbumTitle = () => setAlbumTitle("");
+
   const imagesWithAddButton = [
     ...filteredImages,
     {
@@ -131,5 +157,9 @@ export default () => {
     closeBigImgModal,
     selectImage,
     selectedImage,
+    moveToPreviousImage,
+    moveToNextImage,
+    showPreviousArrow,
+    showNextArrow,
   };
 };
