@@ -100,20 +100,23 @@ export default () => {
   );
 
   const moveToPreviousImage = () => {
+    if (!selectedImage) return;
     // filteredImages;
     const selectedImageIndex = filteredImages.findIndex(
       (image) => image.id === selectedImage.id
     );
     const previousImageIdx = selectedImageIndex - 1;
+    if (previousImageIdx < 0) return;
     const previousImage = filteredImages[previousImageIdx];
     setSelectedImage(previousImage);
   };
   const moveToNextImage = () => {
-    // filteredImages;
+    if (!selectedImage) return;
     const selectedImageIndex = filteredImages.findIndex(
       (image) => image.id === selectedImage.id
     );
     const nextImageIdx = selectedImageIndex + 1;
+    if (nextImageIdx > filteredImages.length - 1 || nextImageIdx === -1) return;
     const nextImage = filteredImages[nextImageIdx];
     setSelectedImage(nextImage);
   };
