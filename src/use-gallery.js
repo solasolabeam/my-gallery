@@ -1,12 +1,18 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
+const defaultAlbum = {
+  id: 1,
+  title: "기본",
+};
+
+const ASYNC_KEY = {
+  IMAGES: "images",
+};
+
 export default () => {
-  const defaultAlbum = {
-    id: 1,
-    title: "기본",
-  };
   const [images, setImages] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum); // 추가
   const [albums, setAlbums] = useState([defaultAlbum]);
@@ -15,6 +21,11 @@ export default () => {
   const [albumTitle, setAlbumTitle] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null); // 추가
+
+  const _setImages = (newImages) => {
+    setImages(newImages);
+    AsyncStorage.setItem(ASYNC_KEY.IMAGES, JSON.stringify(newImages));
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -32,7 +43,7 @@ export default () => {
         uri: result.assets[0].uri,
         albumId: selectedAlbum.id,
       };
-      setImages([...images, newImage]);
+      _setImages([...images, newImage]);
     }
   };
 
@@ -46,7 +57,7 @@ export default () => {
         text: "네",
         onPress: () => {
           const newImages = images.filter((images) => images.id !== imagesId);
-          setImages(newImages);
+          _setImages(newImages);
         },
       },
     ]);
@@ -137,6 +148,17 @@ export default () => {
     },
   ];
 
+  const intitValues = async () => {
+    const imagesFromStorge = await AsyncStorage.getItem(ASYNC_KEY.IMAGES);
+    if (imagesFromStorge !== null) {
+      const parsed = JSON.parse(imagesFromStorge);
+      setImages(parsed);
+      console.log("imagesFromStorge", imagesFromStorge);
+    }
+  };
+  useEffect(() => {
+    intitValues();
+  });
   return {
     imagesWithAddButton,
     pickImage,
