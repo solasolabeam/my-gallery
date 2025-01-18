@@ -9,13 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.mygallery"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.mygallery"
     },
     "web": {
       "bundler": "metro",
@@ -25,15 +27,12 @@
     "plugins": [
       "expo-router",
       [
-        "expo-splash-screen",
+        "react-native-google-mobile-ads",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "androidAppId": "ca-app-pub-7415674741350540~1059113024",
+          "iosAppId": "ca-app-pub-7415674741350540~8226861453"
         }
-      ],
-      "react-native-google-mobile-ads"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
