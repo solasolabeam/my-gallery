@@ -10,6 +10,7 @@ const defaultAlbum = {
 
 const ASYNC_KEY = {
   IMAGES: "images",
+  ALBUMS: "albums",
 };
 
 export default () => {
@@ -25,6 +26,10 @@ export default () => {
   const _setImages = (newImages) => {
     setImages(newImages);
     AsyncStorage.setItem(ASYNC_KEY.IMAGES, JSON.stringify(newImages));
+  };
+  const _setAlbums = (newAlbums) => {
+    setAlbums(newAlbums);
+    AsyncStorage.setItem(ASYNC_KEY.ALBUMS, JSON.stringify(newAlbums));
   };
 
   const pickImage = async () => {
@@ -76,7 +81,7 @@ export default () => {
       id: lastId + 1,
       title: albumTitle,
     };
-    setAlbums([...albums, newAlbum]);
+    _setAlbums([...albums, newAlbum]);
   };
   const selectAlbum = (album) => {
     console.log("select! album", album);
@@ -96,7 +101,7 @@ export default () => {
         text: "네",
         onPress: () => {
           const newAlbums = albums.filter((album) => album.id !== albumId);
-          setAlbums(newAlbums);
+          _setAlbums(newAlbums);
           setSelectedAlbum(defaultAlbum);
         },
       },
@@ -149,16 +154,23 @@ export default () => {
   ];
 
   const intitValues = async () => {
+    // images
     const imagesFromStorge = await AsyncStorage.getItem(ASYNC_KEY.IMAGES);
     if (imagesFromStorge !== null) {
       const parsed = JSON.parse(imagesFromStorge);
       setImages(parsed);
-      console.log("imagesFromStorge", imagesFromStorge);
+    }
+    // albums
+    const albumFromStorge = await AsyncStorage.getItem(ASYNC_KEY.ALBUMS);
+    if (albumFromStorge !== null) {
+      console, log("albumFromStorge", albumFromStorge);
+      const parsed = JSON.parse(albumFromStorge);
+      setAlbums(parsed);
     }
   };
   useEffect(() => {
     intitValues();
-  });
+  }, []);
   return {
     imagesWithAddButton,
     pickImage,
