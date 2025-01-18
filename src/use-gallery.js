@@ -163,7 +163,7 @@ export default () => {
     // albums
     const albumFromStorge = await AsyncStorage.getItem(ASYNC_KEY.ALBUMS);
     if (albumFromStorge !== null) {
-      console, log("albumFromStorge", albumFromStorge);
+      console.log("albumFromStorge", albumFromStorge);
       const parsed = JSON.parse(albumFromStorge);
       setAlbums(parsed);
     }
