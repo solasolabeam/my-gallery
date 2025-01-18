@@ -4,6 +4,7 @@ import TextInputModal from "@/src/TextInputModal";
 import useGallery from "@/src/use-gallery";
 import { useEffect } from "react";
 import {
+  Alert,
   Dimensions,
   FlatList,
   Image,
@@ -51,9 +52,26 @@ export default function Index() {
     pickImage();
   };
   const onLongPressImage = (imagesId) => deleteImage(imagesId);
-  const onPressAddAlbum = () => {
-    openTextInputModal();
+  const onPressWatchAd = () => {
+    console.log("load ad");
   };
+  const onPressAddAlbum = () => {
+    if (albums.length >= 2) {
+      Alert.alert("광고를 시청해야 앨범을 추가할 수 있습니다.", "", [
+        {
+          style: "cancel",
+          text: "닫기",
+        },
+        {
+          text: "광고 시청",
+          onPress: onPressWatchAd,
+        },
+      ]);
+    } else {
+      openTextInputModal();
+    }
+  };
+
   const onSubmitEditing = () => {
     if (!albumTitle) return;
     // 1. 앨범에 타이틀 추가
