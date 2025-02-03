@@ -1,50 +1,55 @@
-# Welcome to your Expo app 👋
+# MyGallery: 나만의 갤러리 앱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## 프로젝트 소개
 
-1. Install dependencies
+> 나만의 갤러리 앱은 사용자가 직접 촬영한 사진을 저장하고 관리할 수 있는 간단한 모바일 애플리케이션이다. 사진을 찍고 갤러리에 추가하거나, 원하는 이미지를 삭제하고 정리할 수 있다. React Native와 Expo를 활용하여 크로스 플랫폼(안드로이드 & iOS)에서 실행 가능하도록 개발하였다.
 
-   ```bash
-   npm install
-   ```
+## 기술 스택
 
-2. Start the app
+> `React Native`, `Expo`, `AsyncStorage`, `Expo Image Picker`
 
-   ```bash
-    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+## 주요 기능
+- 이미지 업로드: 기기 내 저장된 사진을 가져와 갤러리에 추가
+- 앨범 추가: 앨범별로 사진을 관리 가능
+- 사진 삭제: 선택한 이미지를 삭제하여 갤러리 관리
+- 로컬 스토리지 저장: AsyncStorage를 이용하여 앱을 재실행해도 데이터 유지
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 성과
+✅ 모바일에서의 모달 사용을 배움
 
-## Get a fresh project
+✅ Expo를 활용한 모바일 개발 경험을 쌓음
 
-When you're ready, run:
+✅ 로컬 저장소(AsyncStorage)를 이용한 데이터 영속성 구현
 
-```bash
-npm run reset-project
-```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-## Learn more
+## 프로젝트 구성
+### 📌 홈 화면 
 
-To learn more about developing your project with Expo, look at the following resources:
+- 저장된 갤러리의 이미지 리스트 표시
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+<img src="https://velog.velcdn.com/images/so2i/post/cf8506d3-ffa2-44a3-9764-de7995ad522b/image.png" width="50%" height="50%">
 
-## Join the community
 
-Join our community of developers creating universal apps.
+### 앨범 및 사진 추가
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- 새 갤러리와 이미지를 추가
+
+![](https://velog.velcdn.com/images/so2i/post/2032e502-9b64-4fda-93da-ee82f986b11c/image.gif) | ![](https://velog.velcdn.com/images/so2i/post/acb0c868-373c-4f6c-b93f-148d6f37d2dc/image.gif)
+--- | --- |
+
+### 앨범 및 사진 삭제
+
+- 기존 갤러리와 이미지를 추가
+
+![](https://velog.velcdn.com/images/so2i/post/3d222843-b15e-475f-9631-f236dc9a7736/image.gif) | ![](https://velog.velcdn.com/images/so2i/post/4ce4a576-c04f-4bf8-8f70-62bfe9457331/image.gif)
+--- | --- |
+
+### 이미지 상세 화면
+
+- 선택한 이미지 크게 보기
+
+<img src="https://velog.velcdn.com/images/so2i/post/209275f1-5f18-4e06-8998-966738771d1d/image.gif" width="50%" height="50%">
