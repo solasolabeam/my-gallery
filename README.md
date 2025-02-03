@@ -36,17 +36,19 @@
 
 ### 앨범 및 사진 추가
 
-- 새 갤러리와 이미지를 추가
+- 새 앨범과 이미지를 추가
 
-![](https://velog.velcdn.com/images/so2i/post/2032e502-9b64-4fda-93da-ee82f986b11c/image.gif) | ![](https://velog.velcdn.com/images/so2i/post/acb0c868-373c-4f6c-b93f-148d6f37d2dc/image.gif)
+![](https://velog.velcdn.com/images/so2i/post/2032e502-9b64-4fda-93da-ee82f986b11c/image.gif) | ![](https://velog.velcdn.com/images/so2i/post/0561a929-1d2c-4f43-8300-aa149fded4a8/image.gif) 
 --- | --- |
+
 
 ### 앨범 및 사진 삭제
 
-- 기존 갤러리와 이미지를 추가
+- 기존 앨범과 이미지를 삭제
 
-![](https://velog.velcdn.com/images/so2i/post/3d222843-b15e-475f-9631-f236dc9a7736/image.gif) | ![](https://velog.velcdn.com/images/so2i/post/4ce4a576-c04f-4bf8-8f70-62bfe9457331/image.gif)
+![](https://velog.velcdn.com/images/so2i/post/3d222843-b15e-475f-9631-f236dc9a7736/image.gif) | ![](https://velog.velcdn.com/images/so2i/post/8421060c-ec03-4aa8-9403-405f3bc18747/image.gif)
 --- | --- |
+
 
 ### 이미지 상세 화면
 
